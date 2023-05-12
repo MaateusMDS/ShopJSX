@@ -1,7 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { getData } from '../context/Data';
 
-export const Home = () => {
+export const Home = ({navigation}) => {
+
+  useEffect(() => {
+    function handleStatusCHange(data) {
+      if (!data) {
+        navigation.navigate('Cadastro')
+        return true
+      }
+      if (!data.login) {
+        console.log(data)
+        navigation.navigate('Login')
+        return true
+      }
+    }
+    getData(handleStatusCHange, 'user')
+  })
+
+  const onPress = () => {
+    navigation.navigate('Logoff')
+  }
+
 
     return (
     <View style={styles.container}>
